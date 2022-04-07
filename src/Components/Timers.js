@@ -10,17 +10,20 @@ Timers.propTypes = {
       id: PropTypes.number,
       name: PropTypes.string,
       seconds: PropTypes.number,
-      minutes: PropTypes.number,
-      isComplete: PropTypes.bool,
+      // minutes: PropTypes.number,
+      // isComplete: PropTypes.bool,
       currentRep: PropTypes.number,
       targetRep: PropTypes.number,
     })
   ).isRequired,
-  changeCompletion: PropTypes.func.isRequired,
+  onTimerCompletion: PropTypes.func.isRequired,
 }
 // You'll notice the props here are destructured, read more about that here https://medium.com/@lcriswell/destructuring-props-in-react-b1c295005ce0
-function Timers({ timers, changeCompletion }) {
-  return timers.map((item) => <Timer key={item.id} {...item} changeCompletion={changeCompletion} />)
+// Overall it helps future you & collaborators know which props the component expects & uses without having to go find where the component is implemented
+function Timers({ timers, onTimerCompletion }) {
+  return timers.map((timer) => (
+    <Timer key={timer.id} timer={timer} onTimerCompletion={onTimerCompletion} />
+  )) // I would suggest keeping the timer together as an object rather than spreading it into the props so that it is clear what props are associated with the timer data
 }
 
 export default Timers
